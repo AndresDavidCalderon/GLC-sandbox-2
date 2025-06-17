@@ -76,11 +76,11 @@ const analizarExpresion = () => {
 	<h2>Simbolos terminales (F)</h2>
 	<p>Aquellos que pueden aparecer en la expresión a partir de la cual construiremos el arbol</p>
 	<input type="checkbox" id="aceptar-numeros-terminal" :checked="aceptarNumerosTerminal"
-		@change="aceptarNumerosTerminal = $event.target==null ? false : $event.target.checked">
+		@change="aceptarNumerosTerminal = ($event.target as HTMLInputElement).checked">
 	<label for="aceptar-numeros-terminal">Numeros</label>
 	<br>
 	<input type="checkbox" id="aceptar-letras-terminal" :checked="aceptarLetrasTerminal"
-		@change="aceptarLetrasTerminal = $event.target.checked">
+		@change="aceptarLetrasTerminal = ($event.target as HTMLInputElement).checked">
 	<label for="aceptar-letras-terminal">Letras</label>
 	<br>
 	<li v-for="(simbolo, index) in simbolosTerminales" :key="simbolo">
@@ -88,14 +88,14 @@ const analizarExpresion = () => {
 		<button @click="eliminarSimboloTerminal(index)">Quitar</button>
 	</li>
 	<input type="text" placeholder="Añade otro simbolo aquí" :value="nuevoSimbolo"
-		@input="nuevoSimbolo = $event.target.value">
+		@input="nuevoSimbolo = (($event.target as HTMLInputElement).value)">
 	<button @click="() => agregarSimboloTerminal(nuevoSimbolo)">Agregar</button>
 	<p>Cada token debe estar separado por un espacio</p>
 
 	<h2>Reglas de produccion</h2>
 	<p>Describe que conjunto de simbolos se pueden transformar en otros. Puedes referirte a simbolos terminales con
 		[Simbolo aquí]
-		o a simbolos intermedios, usa _ para referirte a cualquier elemento final/p>
+		o a simbolos intermedios, usa _ para referirte a cualquier elemento final</p>
 		<li v-for="(regla, index) in reglasDeProduccion" :key="index">
 			{{ regla.entrada }} => {{ regla.salida }}
 			<button @click="reglasDeProduccion.splice(index, 1)">Quitar</button>
